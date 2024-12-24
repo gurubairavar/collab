@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Edit Profile</title>
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
+</head>
+<body>
+   <h1 class="title"><img src="{% static 'images/logo.png' %}" width="100" alt=""> update <span>user</span> profile </h1>
+   <section class="update-profile-container">
+      <form action="" method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+         <img src="{% static 'images/UI/user-vector.jpg' %}" alt="">
+         <div class="flex">
+            <div class="inputBox">
+               <span>username : </span>
+               {{form.first_name}}
+               <span>Skills : </span>
+               {{form.skills}}
+               <details id="skillset" class="box">
+                  <summary>Select Your Skills</summary>
+                  <ul>
+                      <li><input type="checkbox" id="1" value="Analytical Skills"/><label for="1">Analytical Skills</label></li>
+                      <li><input type="checkbox" id="2" value="Reasoning Skills"/><label for="2">Reasoning Skills</label></li> 
+                      <li><input type="checkbox" id="3" value="Aptitude Skills"/><label for="3">Aptitude Skills</label></li> 
+                      <li><input type="checkbox" id="4" value="Communication Skills"/><label for="4">Communication Skills</label></li> 
+                      <li><input type="checkbox" id="5" value="Inter-personal Skills"/><label for="5">Inter-personal Skills</label></li> 
+                      <li><input type="checkbox" id="6" value="Problem Solving Skills"/><label for="6">Problem Solving Skills</label></li> 
+                      <li><input type="checkbox" id="7" value="Decision Making Skills"/><label for="7">Decision Making Skills</label></li> 
+                  </ul>
+              </details>
+            </div>
+            <div class="inputBox">
+               <span>Bio :</span>
+               {{form.bio}}
+               <span>profile pic : </span>
+               <input type="hidden" name="old_image" value="">
+               <!-- <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png"> -->
+                {{form.profile_pic}}
+            </div>
+         </div>
+         <div class="flex-btn">
+            <input type="submit" id="btn" value="update profile" name="update" class="btn">
+            <a href="#" class="option-btn">go back</a>
+         </div>
+      </form>
+   </section>
+</body>
+</html>
+<script>
+  Skillset = document.getElementById('skillset');
+  CheckBoxes = document.querySelectorAll("input[type='checkbox']");
+  SkillInput = document.getElementById("id_skills");
+  SkillInput.style.display = "none";
+
+  Skillset.addEventListener("toggle",function(){
+    SkillInput.value = "";
+    if(Skillset.open == true)
+    {
+      document.getElementById('btn').style.display = "none";
+    }
+    else
+    {
+      document.getElementById('btn').style.display = "block";
+      CheckBoxes.forEach((e)=>{
+        if(e.checked == true) SkillInput.value = SkillInput.value +  (e.value) + ",";
+      })
+    }
+  });
+
+//   SKILLSET INPUT VALUE SHOULD ADD
+  document.getElementById('id_profile_pic').className = "box";
+</script>

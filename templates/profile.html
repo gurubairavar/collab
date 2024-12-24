@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Collab - Your Profile</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <style>
+        .header__wrapper header {
+            width: 100%;
+            background: url("{% static 'images/banner.jpg' %}") no-repeat 50% 20% / cover;
+            min-height: calc(100px + 15vw);
+            filter: blur(2.5px);
+            filter: grayscale(1);
+            }
+    </style>
+  </head>
+  <body>
+    <a href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo.png' %}" alt=""></a>    
+    <div class="header__wrapper">
+      <header></header>
+      <div class="cols__container">
+        <div class="left__col">
+          <div class="img__container">
+            <img src="{{ profile.profile_pic.url }}" alt="{{ profile.user }}" />
+            {% if request.user == profile.user %}
+            <a href="{% url 'editprofile' %}"><span><img src="{% static 'images/UI/edit.png' %}" alt=""></span></a>
+            {% endif %}
+          </div>
+          <h2>{{ profile.user }}</h2>
+          <p>{{ profile.bio }}</p>
+          <p>{{profile.user.email}}</p>
+
+          <ul class="about">
+            <li><span>{{followers_count}}</span>Followers</li>
+            <li><span>{{following_count}}</span>Following</li>
+            <li><span>{{ posts_count }}</span>Posts</li>
+          </ul>
+
+          <div class="content">
+            <h2 class="skill_title">My Skills</h2>
+            <section class="skills">
+                {% for skill in skills %}
+                <div class="skill">
+                    <div class="skill-name">{{skill}}</div>
+                </div>
+                {% endfor %}
+            </section>
+          </div>
+        </div>
+        <div class="right__col">
+          <nav>
+            <ul>
+              <li><a href="">Posts</a></li>
+            </ul>
+              <div class="">
+                {% if request.user != profile.user %}
+
+                  {% if sent_requests %}
+                    {% if accepted_requests %}
+                        <a href=""><button>Request Accepted</button></a>
+                    {% elif declined_requests %}
+                        <a href=""><button>Request declined</button></a>
+                    {% endif %}
+
+                    {% if not accepted_requests and not declined_requests %}
+                        <button>Request pending</button>
+                    {% endif %}
+                  {% else %}
+                        <a href="{% url 'send_friend_request' profile.user.id %}"><button>Send Friend Request </button></a>
+                  {% endif %}
+
+                {% endif %}
+                  {% if request.user.is_authenticated and request.user != profile.user %}
+                      {% if follow_status == True %}
+                          <a href="{% url 'follow' profile.user 0 %}"><button>Unfollow</button></a>
+                      {% else %}
+                      <a href="{% url 'follow' profile.user 1 %}"><button>Follow</button></a>
+                      {% endif %}
+                  {% endif %}
+                  {% if request.user == profile.user %}
+                      <a href="#popup1"><button>Create Post</button></a>
+                  {% endif %}
+              </div>
+            
+          </nav>
+
+          <div class="photos">
+            {% for post in posts %}
+            <img src="{{ post.picture.url }}" alt="Photo" />
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- CREATE POST SECTION -->
+    <div class="login-page" id="popup1">
+        <a class="close" href="#">&times;</a>
+        <div class="form">
+          <form class="login-form" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <h2>Create Post</h2>
+            {{form.picture}}
+            {{form.caption}}
+            {{form.tags}}
+            <button>Create</button>
+          </form>
+        </div>
+      </div>
+      <!-- CREATE SECTION END -->
+       
+      {% for message in messages %} 
+      <div class="error success">
+        <div class="error__icon">
+          <i class="fa-solid fa-check-circle"></i>
+        </div>
+        <div class="error__title">{{message}}</div>
+        <div class="error__close"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path fill="#393a37" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg></div>
+      </div>
+    {% endfor %}
+  </body>
+</html>

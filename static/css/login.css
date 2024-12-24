@@ -1,0 +1,426 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: #000;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    /* background: url("images/background.jpg"); */    
+}
+
+nav {
+    position: fixed;
+    padding: 25px 60px;
+    z-index: 1;
+}
+
+nav a img {
+    width: 167px;
+}
+
+.form-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 4px;
+    padding: 50px;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, .50);
+}
+
+.form-wrapper h2 {
+    color: #fff;
+    font-size: 2rem;
+}
+
+.form-wrapper form {
+    margin: 25px 0 65px;
+}
+
+form .form-control {
+    height: 50px;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.form-control input, select{
+    height: 100%;
+    width: 100%;
+    background: #333;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0 20px;
+}
+
+.form-control input:is(:focus, :valid) {
+    background: #444;
+    padding: 16px 20px 0;
+}
+
+.form-control label {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    pointer-events: none;
+    color: #8c8c8c;
+    transition: all 0.1s ease;
+}
+
+.form-control input:is(:focus, :valid)~label {
+    font-size: 0.75rem;
+    transform: translateY(-130%);
+}
+
+form button {
+    width: 100%;
+    padding: 16px 0;
+    font-size: 1rem;
+    background: white;
+    color: #000;
+    font-weight: 500;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    margin: 25px 0 10px;
+    cursor: pointer;
+    transition: hover 0.5s ease;
+}
+
+form button:hover {
+    background: #7f7c7c;
+    color: #fff;
+}
+
+.form-wrapper a {
+    text-decoration: none;
+}
+
+.form-wrapper a:hover {
+    text-decoration: underline;
+}
+
+.form-wrapper :where(label, p, small, a) {
+    color: #b3b3b3;
+}
+
+form .form-help {
+    display: flex;
+    justify-content: space-between;
+}
+
+form .remember-me {
+    display: flex;
+}
+
+form .remember-me input {
+    margin-right: 5px;
+    accent-color: #b3b3b3;
+}
+
+form .form-help :where(label, a) {
+    font-size: 0.9rem;
+}
+
+.form-wrapper p a {
+    color: #fff;
+}
+
+.form-wrapper small {
+    display: block;
+    margin-top: 15px;
+    color: #b3b3b3;
+}
+
+.form-wrapper small a {
+    color: #0071eb;
+}
+
+
+
+@media (max-width: 740px) {
+    body::before {
+        display: none;
+    }
+
+    nav, .form-wrapper {
+        padding: 20px;
+    }
+
+    nav a img {
+        width: 140px;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        top: 43%;
+    }
+
+    .form-wrapper form {
+        margin: 25px 0 40px;
+    }
+}
+
+
+/* REGISTER PAGE CSS */
+.form{
+    position: absolute;
+    left: 35%;
+    top: 2%;
+    max-width: 430px;
+    max-height: 97%;
+    width: 100%;
+    padding: 35px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, .50);
+}
+.form.signup{
+    opacity: 0;
+    pointer-events: none;
+}
+.forms.show-signup .form.signup{
+    opacity: 1;
+    pointer-events: auto;
+}
+.forms.show-signup .form.login{
+    opacity: 0;
+    pointer-events: none;
+}
+header{
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+form{
+    margin-top: 30px;
+}
+.form .field{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+.field input,
+.field button{
+    height: 100%;
+    width: 100%;
+    border: 0;
+    font-size: 16px;
+    font-weight: 400;
+    outline: 0;
+    border-radius: 4px;
+    background: #333;
+    color: #fff;
+}
+.d-none
+{
+    display: none;
+}
+.field input{
+    outline: none;
+    padding: 0 15px;
+    /* border: 1px solid#CACACA; */
+}
+.field input:focus{
+    border-bottom-width: 2px;
+}
+.eye-icon{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+}
+.field button{
+    color: #000;
+    background-color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 5px 0 10px;
+}
+.field button:hover{
+    background-color: #7f7c7c;
+}
+.form-link{
+    text-align: right;
+    margin-top: 20px;
+}
+.form-link span,
+.form-link a{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+}
+.form a{
+    color: #0171d3;
+    text-decoration: none;
+}
+.form-content a:hover{
+    text-decoration: underline;
+}
+
+
+@media screen and (max-width: 400px) {
+    .form{
+        padding: 20px 10px;
+    }
+    
+}
+
+/* SELECT */
+
+select
+{
+    appearance: none;
+}
+
+details {
+    height: 100%;
+    width: 100%;
+    background: #333;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+    padding: 11px 20px;
+    cursor: pointer;
+}
+
+summary {
+    border: 1px solid var(--lt-gray);
+    border-collapse: collapse;
+    border-radius: 4px;
+    padding: 4px;
+    width: 250px;
+}
+
+details[open] > summary::marker {
+    color: white;
+}
+
+summary:focus,
+summary:active {
+    box-shadow: 0 0 5px 1px var(--blue);
+}
+
+details>ul {
+    list-style: none;
+    height: 350%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    align-items: center;
+}
+details>ul>li {
+    background-color: gray;
+    width: 100%;
+    padding: 1.5% 3% 3% 3%;
+}
+input[type="checkbox"]
+{
+    width: auto;
+    margin-right: 5%;
+}
+details>ul>li > label {
+    cursor: pointer;
+    display: inline-block;
+    /* width: 100%; */
+}
+details>ul>li:hover,
+details>ul>li:has(input:checked) {
+    background-color: rgb(68, 67, 67);
+    color: white;
+}
+
+/* ERRORS */
+.msg
+{
+  z-index: 1001;
+  position: absolute;
+  top: 5%;
+  right: 2.5%;
+}
+.error {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 320px;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  background: #EF665B;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px -3px #111;
+  margin-top: 5%;
+  animation: Slide 2s ease-out;
+}
+@keyframes Slide {
+  0%
+  {
+    transform: translateX(50%);
+  }
+  1000%
+  {
+    transform: translateX(0%);
+  }
+}
+.success
+{
+  background: #4BB543;
+  color: white;
+}
+
+.error__icon {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-2px);
+  margin-right: 8px;
+  color: white;
+}
+
+.error__icon path {
+  fill: #fff;
+}
+
+.error__title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+}
+
+.error__close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.error__close path {
+  fill: #fff;
+}

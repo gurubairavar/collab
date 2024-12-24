@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      body::before {
+        background: url("{% static 'images/background.jpg' %}");
+        background-position: center;
+        background-size: cover;
+      }
+  </style>
+</head>
+<body>
+    <nav>
+        <a href="#"><img src="{% static 'images/Logo.png' %}" alt="logo"></a>
+    </nav>
+    <div class="form-wrapper">
+        <h2>Sign In</h2>
+        <form action="" method="POST" autocomplete="off">
+          {% csrf_token %}
+            <div class="form-control">
+                <input type="text" name="username" required>
+                <label>Username</label>
+            </div>
+            <div class="form-control">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+            <button type="submit">Sign In</button>
+            <div class="form-help"> 
+                <p>New to Collab? <a href="{% url 'register' %}">Sign up now</a></p>
+            </div>
+        </form>
+    </div>
+    <div class="msg">
+      {% for message in messages %} 
+        <div class="error success">
+          <div class="error__icon">
+            <i class="fa-solid fa-check-circle"></i>
+          </div>
+          <div class="error__title">{{message}}</div>
+          <div class="error__close"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path fill="#393a37" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg></div>
+        </div>
+      {% endfor %}
+    </div>
+</body>
+</html>
+<script src="{% static 'js/login.js' %}"></script>

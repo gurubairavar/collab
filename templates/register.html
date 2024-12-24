@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+      body::before {
+        background: url("{% static 'images/background.jpg' %}");
+        background-position: center;
+        background-size: cover;
+      }
+  </style>
+</head>
+<body>
+    <nav>
+        <a href="#"><img src="images/Logo.png" alt="logo"></a>
+    </nav>
+    <div class="form login">
+        <div class="form-content">
+            <header>SignUp</header>
+            <form action="" method="POST" autocomplete="off">
+              {% csrf_token %}
+                <div class="field input-field">
+                  {{form.username}}
+                </div>
+
+                <div class="field input-field">
+                  {{form.email}}
+                </div>
+
+                <div class="field input-field">
+                  {{form.password1}}
+                    <i class='bx bx-hide eye-icon'></i>
+                </div>
+
+                <div class="field input-field">
+                  {{form.password2}}
+                    <i class='bx bx-hide eye-icon'></i>
+                </div>
+
+                <div class="field input-field">
+                  {{form.department}}
+                    <!-- <input type="text" placeholder="Department"> -->
+                    <select name="departmentselect" id="dept" required>
+                        <option value="" selected disabled>Select Your Department</option>
+                        {% for department in departments %}
+                          <option value="{{department}}">{{department}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field input-field">
+                  {{form.skills}}
+                  <details id="skillset">
+                    <summary>Select Your Skills</summary>
+                    <ul>
+                        <li><input type="checkbox" id="1" value="Analytical Skills"/><label for="1">Analytical Skills</label></li>
+                        <li><input type="checkbox" id="2" value="Reasoning Skills"/><label for="2">Reasoning Skills</label></li> 
+                        <li><input type="checkbox" id="3" value="Aptitude Skills"/><label for="3">Aptitude Skills</label></li> 
+                        <li><input type="checkbox" id="4" value="Communication Skills"/><label for="4">Communication Skills</label></li> 
+                        <li><input type="checkbox" id="5" value="Inter-personal Skills"/><label for="5">Inter-personal Skills</label></li> 
+                        <li><input type="checkbox" id="6" value="Problem Solving Skills"/><label for="6">Problem Solving Skills</label></li> 
+                        <li><input type="checkbox" id="7" value="Decision Making Skills"/><label for="7">Decision Making Skills</label></li> 
+                    </ul>
+                </details>
+                </div>
+
+                <div class="field" id="btn">
+                    <button>SignUp</button>
+                </div>
+
+                <div class="form-link">
+                    <span>Already have an account? <a href="{% url 'login' %}" class="link signup-link">Signin</a></span>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="msg">
+      {% if form.errors %}
+      {% for key,value in form.errors.items %} 
+        <div class="error">
+          <div class="error__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#393a37" d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"></path></svg>
+          </div>
+          <div class="error__title">{{value}}</div>
+          <div class="error__close"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path fill="#393a37" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg></div>
+        </div>
+      {% endfor %}
+    {% endif %}
+    </div>    
+</body>
+</html>
+<script>
+
+  // MAKES THE  FIELDs MANDATORY
+
+  document.getElementsByName('username')[0].placeholder='Username';
+  document.getElementsByName('email')[0].placeholder='Email';
+  document.getElementsByName('password1')[0].placeholder='Password';
+  document.getElementsByName('password2')[0].placeholder='Confirm Password';
+  document.getElementsByName('department')[0].type='hidden';
+  document.getElementsByName('skills')[0].type='hidden';
+
+  // DETAILS
+
+  Skillset = document.getElementById('skillset');
+  CheckBoxes = document.querySelectorAll("input[type='checkbox']");
+  SkillInput = document.getElementById("id_skills");
+  Skillset.addEventListener("toggle",function(){
+    SkillInput.value = "";
+    if(Skillset.open == true)
+    {
+      document.getElementById('btn').style.display = "none";
+    }
+    else
+    {
+      document.getElementById('btn').style.display = "block";
+      CheckBoxes.forEach((e)=>{
+        if(e.checked == true) SkillInput.value = SkillInput.value +  (e.value) + ",";
+      })
+    }
+  });
+
+  document.querySelectorAll("input[type='password']").forEach((e)=>{ e.required = true; })
+
+  Dept = document.getElementById("dept");
+  Dept.addEventListener("change",(e)=>{
+    var text = Dept.options[Dept.selectedIndex].text;
+    document.getElementById("id_department").value = text;
+    })
+
+    document.getElementById("id_username").setAttribute("pattern","[A-Za-z]+");
+  console.log(document.getElementById("id_username").getAttribute("pattern"));
+
+</script>
+<script src="{% static 'js/login.js' %}"></script>
